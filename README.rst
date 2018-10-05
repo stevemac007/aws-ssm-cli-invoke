@@ -1,7 +1,17 @@
 aws-ssm-cli-invoke
 ==================
 
-|Build Status|
+.. image:: https://travis-ci.org/stevemac007/aws-ssm-cli-invoke.svg?branch=master
+   :target: https://travis-ci.org/stevemac007/aws-ssm-cli-invoke
+   :alt: Travis build badge
+
+.. image:: https://coveralls.io/repos/github/stevemac007/aws-ssm-cli-invoke/badge.svg?branch=master
+   :target: https://coveralls.io/github/stevemac007/aws-ssm-cli-invoke?branch=master
+   :alt: Coveralls build badge
+
+.. image:: https://img.shields.io/pypi/v/aws-ssm-invoke.svg
+   :target: https://pypi.python.org/pypi/aws-ssm-invoke/
+   :alt: PyPI version badge
 
 A wrapper around an AWS SSM send-command that can optionally wait for
 execution success.
@@ -72,6 +82,3 @@ Acknowledgements
 
 -  Project Bootstrapped from
    https://github.com/obi1kenobi/python-bootstrap
-
-.. |Build Status| image:: https://travis-ci.org/stevemac007/aws-ssm-cli-invoke.svg?branch=master
-   :target: https://travis-ci.org/stevemac007/aws-ssm-cli-invoke

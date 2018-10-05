@@ -9,10 +9,10 @@ A wrapper around an AWS SSM send-command that can optionally wait for execution 
 Usage on the tool can be found by executing `aws-ssm-invoke -h`.
 
 ```
-$ aws-ssm-invoke -h
+$ aws-ssm-invoke --help
 usage: aws-ssm-invoke [-h] [--comment COMMENT]
-                      [--instance-ids [INSTANCE_IDS [INSTANCE_IDS ...]]]
-                      [--tags [TAGS [TAGS ...]]] [--wait] [--show-output]
+                      (--instance-ids [INSTANCE_IDS [INSTANCE_IDS ...]] | --tags [TAGS [TAGS ...]])
+                      [--wait] [--show-output]
                       command
 
 positional arguments:

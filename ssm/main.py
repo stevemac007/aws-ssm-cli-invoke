@@ -33,17 +33,18 @@ class SSMInvoke(object):
         self.wait = parsed_args.wait
         self.show_output = parsed_args.show_output
 
-        for tag in parsed_args.tags:
-            vals = tag.split('=')
-            key = vals[0]
-            value = vals[1]
+        if parsed_args.tags is not None:
+            for tag in parsed_args.tags:
+                vals = tag.split('=')
+                key = vals[0]
+                value = vals[1]
 
-            self.targets += [
-                {
-                    'Key': "tag:" + key,
-                    'Values': [value]
-                }
-            ]
+                self.targets += [
+                    {
+                        'Key': "tag:" + key,
+                        'Values': [value]
+                    }
+                ]
 
         if parsed_args.comment is not None:
             self.comment = parsed_args.comment
@@ -135,10 +136,11 @@ def main():
 
     parser.add_argument("--comment", required=False)
 
-    parser.add_argument('--instance-ids', nargs='*', required=False,
-                        help='Instance ID\'s to execute on')
-    parser.add_argument('--tags', nargs='*', required=False,
-                        help='Key=Value pairs to execute on')
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--instance-ids', nargs='*', required=False,
+                       help='Instance ID\'s to execute on')
+    group.add_argument('--tags', nargs='*', required=False,
+                       help='Key=Value pairs to execute on')
 
     parser.add_argument("--wait", action="store_true", required=False, default=False,
                         help="When supplied will poll the SSM command until it is complete.")

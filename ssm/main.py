@@ -13,6 +13,7 @@ class SSMInvoke(object):
     ERROR_DETAIL_STATES = ["NoInstancesInTag"]
 
     def __init__(self):
+        """Object constructor, sets defaults."""
         self.targets = []
         self.command = None
         self.instances = None
@@ -22,7 +23,11 @@ class SSMInvoke(object):
         self.show_output = False
 
     def parse_args(self, parsed_args):
+        """Convert the argsparser arguments into the internal representation required for the SSM commands and logic flow.
 
+        :param parsed_args:
+        :return:
+        """
         self.command = parsed_args.command
         self.wait = parsed_args.wait
         self.show_output = parsed_args.show_output
@@ -50,7 +55,10 @@ class SSMInvoke(object):
         return self.ssm_client
 
     def invoke(self):
+        """Perform the actual SSM calls and console output.
 
+        :return:
+        """
         command_result = self._ssm_client().send_command(Targets=self.targets,
                                                          InstanceIds=[],
                                                          DocumentName='AWS-RunShellScript',
@@ -118,7 +126,10 @@ class SSMInvoke(object):
 
 
 def main():
+    """Entry point for command line.
 
+    :return:
+    """
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--command", required=True)

@@ -3,3 +3,8 @@
 [![Build Status](https://travis-ci.org/stevemac007/aws-ssm-cli-invoke.svg?branch=master)](https://travis-ci.org/stevemac007/aws-ssm-cli-invoke)
 
 A wrapper around an AWS SSM send-command that can optionally wait for execution success.
+
+
+### Acknowledgements
+
+- Project Bootstrapped from https://github.com/obi1kenobi/python-bootstrap

@@ -3,7 +3,10 @@ language: python
 cache: pip
 python:
   - "2.7"
-  - "3.6"
+  - '3.4'
+  - '3.5'
+  - '3.6'
+  - '3.7'
 install:
   - pip install -r dev-requirements.txt
   - pip install -r requirements.txt
@@ -11,8 +14,23 @@ install:
 script:
   - pydocstyle ssm/
   - isort --check-only --verbose --recursive ssm/
-  - pylint ssm/
+#  - pylint ssm/
   - bandit -r ssm/
   - py.test --cov=ssm ssm/tests
 after_success:
   - coveralls
+after_script:
+  - coverage report
+jobs:
+  include:
+  - stage: deploy
+    python: '2.7'
+    install: skip
+    script: skip
+    deploy:
+      provider: pypi
+      user: stevemac
+      password:
+        secure: B+aqHHelE0lX4jO6dC+ZgEIW45PMWAi5cWcx99a+gYWbSUAdp1MlJtamh9n172rq4+GpI9CrSPyl03/7Tfmr8U0xzolHRjTDAH01gdQklbexmkIOFyuS1aUZOIUrjnmmRZSdCfuOVLeM19yufE4kPUT3o4LYRRscGXCQl4wO8LXA/xDm9nu7vJ7/NuwGcvFxKsDnsWbgbLxI/UV64w5YsboZflqU4YwpOmfu5rIq6NqWMZBpnPNxF9l4n1Aw+aWwYh843RW4oeVfdh8En+bHwMyHxrxXWajMyIQALg9JHYnTrFM/GBpBA+vl0D09PN29+pr5tlGXiEcioga6T9QDzvoGMQ9QK0ruhoPpvEX43dR8LQU0C40TQSYedov62hBK60JcNifxVs5nTdK/NR+JQioI33lZbJKeIwAhkDufdAerdlv0iWyMdy1Fmci536dRC27PwPfOwRevZ4s24XFaNTUdr490gHmGbl1UA75G3PBheUzwwTFfZKIBxsyeBQx4NZMjOjF5B5b+hCBjHQ8zWN4mJYyQEgcbF1ec9FUif71uat8xMPC8keY82Cr8cz3bCkf+DGqWVlbnpCiQWf+tnVI+PiaIRIHqaw8h8t9cEsO0IzdUbbEcxa6z1IyAZ9a9OCP8wv9xJ9+rGGkwbGdd0CoQQP18LG7oCOlCBFtuKR4=
+      on:
+        tags: true

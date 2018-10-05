@@ -120,8 +120,22 @@ class SSMInvoke(object):
                     instance_name = invocation['InstanceName']
                     status = invocation['Status']
 
-                    print(" - [{}] {} ({})".format(status, instance_id, instance_name))
-                    # print(invocation)
+                    response = self._ssm_client().get_command_invocation(
+                        CommandId=command_id,
+                        InstanceId=instance_id
+                    )
+
+                    elapsed_time = response["ExecutionElapsedTime"]
+                    response_code = response["ResponseCode"]
+
+                    standard_output_content = response["StandardOutputContent"]
+                    standard_error_content = response["StandardErrorContent"]
+
+                    print(" - [{} in {}] {} ({})".format(status, elapsed_time, instance_id, instance_name))
+                    if response_code == 0:
+                        print(standard_output_content)
+                    else:
+                        print(standard_error_content)
 
             if in_error:
                 sys.exit(1)

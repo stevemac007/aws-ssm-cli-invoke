@@ -132,15 +132,22 @@ def main():
     """
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--command", required=True)
     parser.add_argument("--comment", required=False)
 
-    parser.add_argument('--instance-ids', nargs='*', help='Instance ID\'s to execute on', required=False)
-    parser.add_argument('--tags', nargs='*', help='Key,Value pairs to execute on', required=False)
+    parser.add_argument('--instance-ids', nargs='*', required=False,
+                        help='Instance ID\'s to execute on')
+    parser.add_argument('--tags', nargs='*', required=False,
+                        help='Key=Value pairs to execute on')
 
-    parser.add_argument("--wait", action="store_true", required=False, default=False)
-    parser.add_argument("--show-output", action="store_true", required=False, default=False)
-    parser.add_argument("--ignore-fail-on-no-tag", action="store_true", required=False, default=False)
+    parser.add_argument("--wait", action="store_true", required=False, default=False,
+                        help="When supplied will poll the SSM command until it is complete.")
+    parser.add_argument("--show-output", action="store_true", required=False, default=False,
+                        help="When supplied will show the output from each execution")
+
+    parser.add_argument("command",
+                        help="The command to execute on all matching EC2 instances")
+
+    # parser.add_argument("--ignore-fail-on-no-tag", action="store_true", required=False, default=False)
 
     args = parser.parse_args()
 

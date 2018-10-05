@@ -1,9 +1,10 @@
 from __future__ import absolute_import
 
-import boto3
 import argparse
-import time
 import sys
+import time
+
+import boto3
 
 
 class SSMInvoke(object):

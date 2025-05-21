@@ -17,7 +17,7 @@ class SSMInvoke(object):
         """Object constructor, sets defaults."""
         self.targets = []
         self.command = None
-        self.instances = None
+        self.instances = []
         self.comment = ""
         self.ssm_client = None
         self.wait = False
@@ -45,6 +45,11 @@ class SSMInvoke(object):
                         'Values': [value]
                     }
                 ]
+        #print(parsed_args)
+
+        if parsed_args.instance_ids is not None:
+            for instances_id in parsed_args.instance_ids:
+                self.instances.append( instances_id)
 
         if parsed_args.comment is not None:
             self.comment = parsed_args.comment
@@ -61,8 +66,9 @@ class SSMInvoke(object):
 
         :return:
         """
-        command_result = self._ssm_client().send_command(Targets=self.targets,
-                                                         InstanceIds=[],
+        #print(self.targets)
+        command_result = self._ssm_client().send_command(#Targets=self.targets,
+                                                         InstanceIds=self.instances,
                                                          DocumentName='AWS-RunShellScript',
                                                          Comment=self.comment,
                                                          Parameters={"commands": [self.command]})
@@ -167,10 +173,12 @@ def main():
     # parser.add_argument("--ignore-fail-on-no-tag", action="store_true", required=False, default=False)
 
     args = parser.parse_args()
-
     invoker = SSMInvoke()
+    #print(args)
     invoker.parse_args(parsed_args=args)
+    #print(invoker)
     invoker.invoke()
+    
 
 
 if __name__ == '__main__':

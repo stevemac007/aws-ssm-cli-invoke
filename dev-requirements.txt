@@ -4,5 +4,5 @@ coveralls==1.2.0
 isort==4.2.15
 pydocstyle==2.0.0
 pylint==2.7.0
-pytest==3.2.2
+pytest==9.0.3
 pytest-cov==2.5.1
